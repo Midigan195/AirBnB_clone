@@ -16,10 +16,6 @@ from models.user import User
 class HBNBCommand(cmd.Cmd):
     """ The interpreter class """
     prompt = '(hbnb) '
-    __clss = {"BaseModel", "State", "City",
-                "Amenity", "Place", "Review",
-                "User"
-                }
 
     def do_quit(self, arg):
         """ This exits out of programme """
@@ -27,6 +23,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """ This exits out of programme when EOF detected """
+        print
         return True
 
     def emptyline(self):
@@ -37,10 +34,9 @@ class HBNBCommand(cmd.Cmd):
         """ Creates a new instance of BaseModel """
         class_name = class_name.split()
         if len(class_name) == 0:
+            print("** class name missing **")
+        elif class_name[0] not in globals():
             print("** class doesn't exist **")
-        elif class_name[0] not in HBNBCommand.__clss:
-            print("** class doesn't exist**")
-            return
         else:
             print(eval(class_name[0])().id)
             storage.save()
@@ -51,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
         dict_ob = storage.all()
         if len(arg) == 0:
             print("** class name missing **")
-        elif not arg:
+        elif arg[0] not in globals():
             print("** class doesn't exist **")
         elif len(arg) < 2:
             print("** instance id missing **")
@@ -66,7 +62,7 @@ class HBNBCommand(cmd.Cmd):
         dict_obj = storage.all()
         if len(inst_name) == 0:
             print("** class name missing **")
-        elif inst_name[0] not in HBNBCommand.__clss:
+        elif inst_name[0] not in globals():
             print("** class doesn't exist **")
         elif len(inst_name) < 2:
             print("** instance id missing **")
@@ -79,12 +75,12 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, arg):
         """ Prints the string representation of all class instances """
         arg = arg.split()
-        if len(arg) > 0 and arg[0] not in HBNBCommand.__clss:
-           print("** class doesn't exist **")
+        if len(arg) > 0 and arg[0] not in globals():
+            print("** class doesn't exist **")
         else:
             str_obj = []
             for str_ob in storage.all().values():
-                if len(arg) > 0 and arg[0] == obj.__class__.__name__:
+                if len(arg) > 0 and arg[0] == str_ob.__class__.__name__:
                     str_obj.append(str_ob.__str__())
                 elif len(arg) == 0:
                     str_obj.append(str_ob.__str__())
@@ -93,14 +89,15 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, arg):
         """ Updates an instance based on the class name and id
 
-            Usage: update <class name> <id> <attribute name> "<attribute value>"
+            Usage: update <class name> <id> <attribute name>
+                "<attribute value>"
         """
         arg = arg.split()
         dict_ob = storage.all()
         if len(arg) == 0:
             print("** class name missing **")
             return False
-        if arg[0] not in HBNBCommand.__clss:
+        if arg[0] not in globals():
             print("** class doesn't exist **")
             return False
         if len(arg) == 1:
@@ -136,6 +133,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     ob.__dict__[key] = value
         storage.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

@@ -8,6 +8,7 @@ from datetime import datetime
 import uuid
 import models
 
+
 class BaseModel:
     """
     BaseModel serves as a base class for all other classes
