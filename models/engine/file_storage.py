@@ -4,6 +4,7 @@ This module defines a class that defines a file storage engine
 """
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
