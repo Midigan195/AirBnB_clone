@@ -23,7 +23,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """ This exits out of programme when EOF detected """
-        print
+        print("")
         return True
 
     def emptyline(self):
