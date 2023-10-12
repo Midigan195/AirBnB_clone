@@ -3,6 +3,7 @@
     This is the entry point of the command interprter
 """
 import cmd
+import shlex
 from models import storage
 from models.base_model import BaseModel
 from models.state import State
@@ -92,45 +93,40 @@ class HBNBCommand(cmd.Cmd):
             Usage: update <class name> <id> <attribute name>
                 "<attribute value>"
         """
-        arg = arg.split()
+        args = shlex.split(arg)
         dict_ob = storage.all()
-        if len(arg) == 0:
+        if len(args) == 0:
             print("** class name missing **")
             return False
-        if arg[0] not in globals():
+        if args[0] not in globals():
             print("** class doesn't exist **")
             return False
-        if len(arg) == 1:
+        if len(args) == 1:
             print("** instance id missing **")
             return False
-        if "{}.{}".format(arg[0], arg[1]) not in dict_ob.keys():
+        if "{}.{}".format(args[0], args[1]) not in dict_ob.keys():
             print("** no instance found **")
             return False
-        if len(arg) == 2:
+        if len(args) == 2:
             print("** attribute name missing **")
             return False
-        if len(arg) == 3:
+        if len(args) == 3:
             try:
-                type(eval(arg[2])) != dict
+                type(eval(args[2])) != dict
             except NameError:
                 print("** value missing **")
                 return False
-        if len(arg) >= 4:
-            ob = dict_ob["{}.{}".format(arg[0], arg[1])]
-            if arg[2] in ob.__dict__:
-                value_typ = type(ob.__dict__[arg[2]])
+        if len(args) >= 4:
+            ob = dict_ob["{}.{}".format(args[0], args[1])]
+            try:
+                args[3] = (eval(args[3]))
+            except:
+                value_type = str
+            if args[2] in ob.__dict__:
+                value_typ = type(ob.__dict__[args[2]])
             else:
-                if arg[3].isdigit():
-                    value_typ = int
-                elif arg[3].replace('.', '', 1).isdigit():
-                    value_typ = float
-                else:
-                    value_typ = str
-            if value_typ == str and not '"' in arg[3]:
-                value_typ = None
-            if value_typ == str:
-                arg[3] = arg[3].strip("\"")
-            setattr(ob, arg[2], value_typ(arg[3]))
+                value_typ = type(args[3])
+            setattr(ob, args[2], value_typ(args[3]))
         storage.save()
 
 
