@@ -115,23 +115,22 @@ class HBNBCommand(cmd.Cmd):
             except NameError:
                 print("** value missing **")
                 return False
-        if len(arg) == 4:
+        if len(arg) >= 4:
             ob = dict_ob["{}.{}".format(arg[0], arg[1])]
-            if arg[2] in ob.__class__.__dict__.keys():
-                value_typ = type(ob.__class__.__dict__[arg[2]])
-                ob.__dict__[arg[2]] = value_typ(arg[3])
+            if arg[2] in ob.__dict__:
+                value_typ = type(ob.__dict__[arg[2]])
             else:
-                ob.__dict__[arg[2]] = arg[3]
-
-        elif type(eval(arg[2])) == dict:
-            ob = dict_ob["{}.{}".format(arg[0], arg[1])]
-            for key, value in eval(arg[2]).items():
-                if (key in ob.__class__.__dict__.keys() and
-                        type(ob.__class__.__dict__[key]) in {str, int, float}):
-                    value_typ = type(ob.__class__.__dict__[key])
-                    ob.__dict__[key] = value_typ(value)
+                if arg[3].isdigit():
+                    value_typ = int
+                elif arg[3].replace('.', '', 1).isdigit():
+                    value_typ = float
                 else:
-                    ob.__dict__[key] = value
+                    value_typ = str
+            if value_typ == str and not '"' in arg[3]:
+                value_typ = None
+            if value_typ == str:
+                arg[3] = arg[3].strip("\"")
+            setattr(ob, arg[2], value_typ(arg[3]))
         storage.save()
 
 

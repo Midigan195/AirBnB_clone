@@ -136,4 +136,59 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(len(obj_dict['created_at']), 26)
         self.assertEqual(len(obj_dict['updated_at']), 26)
 
+    def test_kwargs_normal(self):
+        """
+        Test when kwargs is a normal dictionary
+        """
+        data =  {
+            '__class__': 'BaseModel',
+            'id': 'some_id_value',
+            'created_at': '2023-10-12T12:00:00',
+            'updated_at': '2023-10-12T12:30:00'
+        }
+        obj = BaseModel(**data)
+        self.assertEqual(obj.id, 'some_id_value')
+        self.assertEqual(obj.created_at, datetime(2023, 10, 12, 12, 0, 0))
+        self.assertEqual(obj.updated_at, datetime(2023, 10, 12, 12, 30, 0))
+        self.assertNotIn("__class__", obj.__dict__)
 
+    def test_kwargs_extra_attrs(self):
+        """
+        Test when kwargs has extra attributes
+        """
+        data =  {
+            'id': 'some_id_value',
+            'created_at': '2023-10-12T12:00:00',
+            'updated_at': '2023-10-12T12:30:00',
+            'name': 'John'
+        }
+        obj = BaseModel(**data)
+        self.assertEqual(obj.id, 'some_id_value')
+        self.assertEqual(obj.created_at, datetime(2023, 10, 12, 12, 0, 0))
+        self.assertEqual(obj.updated_at, datetime(2023, 10, 12, 12, 30, 0))
+        self.assertIn('name', obj.__dict__)
+        self.assertEqual(obj.name, 'John')
+
+    def test_kwargs_Empty_dict(self):
+        """
+        Test when kwargs is empty
+        """
+        data = {}
+        obj = BaseModel(**data)
+        self.assertEqual(len(obj.__dict__), 3)
+
+    def test_kwargs_None(self):
+        """
+        Test when kwargs is None
+        """
+        data = None
+        obj = BaseModel(data)
+        self.assertEqual(len(obj.__dict__), 3)
+
+    def test_kwargs_Not_dict(self):
+        """
+        Test when kwargs is not a dictioanry
+        """
+        data = [1, 4, 8]
+        obj = BaseModel(data)
+        self.assertEqual(len(obj.__dict__), 3)
