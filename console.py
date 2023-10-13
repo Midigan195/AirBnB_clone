@@ -120,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
             ob = dict_ob["{}.{}".format(args[0], args[1])]
             try:
                 args[3] = (eval(args[3]))
-            except:
+            except Exception:
                 value_type = str
             if args[2] in ob.__dict__:
                 value_typ = type(ob.__dict__[args[2]])

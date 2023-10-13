@@ -2,30 +2,30 @@ import unittest
 import uuid
 import json
 from datetime import datetime
-from models.base_model import BaseModel
+from models.review import Review
 """
-Define a test class for BaseModel
+Define a test class for Review
 """
 
 
-class TestBaseModel(unittest.TestCase):
+class TestReview(unittest.TestCase):
     """
-    Define a list of test suites for BaseModel
+    Define a list of test suites for Review
     """
 
     def test_id_isstring(self):
         """
         Test that id is a string
         """
-        obj = BaseModel()
+        obj = Review()
         self.assertIsInstance(obj.id, str)
 
     def test_id_unique(self):
         """
         Test that each id is unique
         """
-        obj1 = BaseModel()
-        obj2 = BaseModel()
+        obj1 = Review()
+        obj2 = Review()
         self.assertNotEqual(obj1.id, obj2.id)
 
     def test_uneqaul_created_and_updated(self):
@@ -33,16 +33,16 @@ class TestBaseModel(unittest.TestCase):
         Test that created_at and updated_at values are different
         for each instance
         """
-        obj1 = BaseModel()
-        obj2 = BaseModel()
+        obj1 = Review()
+        obj2 = Review()
         self.assertNotEqual(obj1.created_at, obj2.created_at)
         self.assertNotEqual(obj1.updated_at, obj2.updated_at)
 
     def test_nomrmal_str(self):
         """
-        Test __str__ method with a normal case of BaseModel
+        Test __str__ method with a normal case of Review
         """
-        obj = BaseModel()
+        obj = Review()
         expected_str = f"[{obj.__class__.__name__}] ({obj.id}) {obj.__dict__}"
         self.assertEqual(str(obj), expected_str)
 
@@ -50,7 +50,7 @@ class TestBaseModel(unittest.TestCase):
         """
         Test __str__ method with a custom attribute
         """
-        obj = BaseModel()
+        obj = Review()
         obj.custom_attr = "custom_value"
         self.assertEqual("custom_value", obj.__dict__['custom_attr'])
 
@@ -58,12 +58,12 @@ class TestBaseModel(unittest.TestCase):
         """
         Test __str__ with attributes set
         """
-        obj = BaseModel()
+        obj = Review()
         obj.created_at = datetime(2022, 1, 1, 0, 0, 0)
         obj.updated_at = datetime(2022, 2, 2, 0, 0, 0)
         obj.id = "test_id"
         expected_output = (
-                "[BaseModel] (test_id) {'id': 'test_id', "
+                "[Review] (test_id) {'id': 'test_id', "
                 "'created_at': datetime.datetime(2022, 1, 1, 0, 0), "
                 "'updated_at': datetime.datetime(2022, 2, 2, 0, 0)}"
         )
@@ -73,7 +73,7 @@ class TestBaseModel(unittest.TestCase):
         """
         Test that save changes the update_at attribute
         """
-        obj = BaseModel()
+        obj = Review()
         initial_update = obj.updated_at
         obj.save()
         updated_update = obj.updated_at
@@ -83,7 +83,7 @@ class TestBaseModel(unittest.TestCase):
         """
         Test that save does not change the created_at attribute
         """
-        obj = BaseModel()
+        obj = Review()
         initial_create = obj.created_at
         obj.save()
         updated_create = obj.created_at
@@ -93,8 +93,8 @@ class TestBaseModel(unittest.TestCase):
         """
         Test to_dict with a normal case
         """
-        base_model = BaseModel()
-        obj_dict = base_model.to_dict()
+        review = Review()
+        obj_dict = review.to_dict()
         self.assertEqual(len(obj_dict), 4)
         self.assertIn('__class__', obj_dict)
         self.assertIn('id', obj_dict)
@@ -105,31 +105,31 @@ class TestBaseModel(unittest.TestCase):
         """
         Test that return value of to dict is a dictionary
         """
-        obj = BaseModel()
+        obj = Review()
         self.assertTrue(dict, type(obj.to_dict))
 
     def test_to_dict_class_name(self):
         """
         Test if to_dict contains the right class name
         """
-        base_model = BaseModel()
-        obj_dict = base_model.to_dict()
-        self.assertEqual(obj_dict['__class__'], 'BaseModel')
+        review = Review()
+        obj_dict = review.to_dict()
+        self.assertEqual(obj_dict['__class__'], 'Review')
 
     def test_to_dict_id_format(self):
         """
         Test if id is in uuid format
         """
-        base_model = BaseModel()
-        obj_dict = base_model.to_dict()
+        review = Review()
+        obj_dict = review.to_dict()
         self.assertTrue(uuid.UUID(obj_dict['id'], version=4))
 
     def test_to_dict_valid_json(self):
         """
         Test if dictionary is in valid json format
         """
-        base_model = BaseModel()
-        obj_dict = base_model.to_dict()
+        review = Review()
+        obj_dict = review.to_dict()
         json_str = json.dumps(obj_dict)
         loaded_dict = json.loads(json_str)
         self.assertEqual(obj_dict, loaded_dict)
@@ -138,8 +138,8 @@ class TestBaseModel(unittest.TestCase):
         """
         Test if created_at and updated_at is in iso_fomat
         """
-        base_model = BaseModel()
-        obj_dict = base_model.to_dict()
+        review = Review()
+        obj_dict = review.to_dict()
         self.assertEqual(len(obj_dict['created_at']), 26)
         self.assertEqual(len(obj_dict['updated_at']), 26)
 
@@ -147,13 +147,13 @@ class TestBaseModel(unittest.TestCase):
         """
         Test if dictionary works for added attributes
         """
-        base_model = BaseModel()
-        base_model.name = "Jeffry"
-        base_model.surname = "Bezos"
-        self.assertIn("name" ,base_model.to_dict())
-        self.assertIn("surname" ,base_model.to_dict())
-        self.assertEqual("Jeffry", base_model.to_dict()["name"])
-        self.assertEqual("Bezos", base_model.to_dict()["surname"])
+        review = Review()
+        review.name = "Jeffry"
+        review.surname = "Bezos"
+        self.assertIn("name" ,review.to_dict())
+        self.assertIn("surname" ,review.to_dict())
+        self.assertEqual("Jeffry", review.to_dict()["name"])
+        self.assertEqual("Bezos", review.to_dict()["surname"])
 
 
     def test_kwargs_normal(self):
@@ -161,12 +161,12 @@ class TestBaseModel(unittest.TestCase):
         Test when kwargs is a normal dictionary
         """
         data =  {
-            '__class__': 'BaseModel',
+            '__class__': 'Review',
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
             'updated_at': '2023-10-12T12:30:00'
         }
-        obj = BaseModel(**data)
+        obj = Review(**data)
         self.assertEqual(obj.id, 'some_id_value')
         self.assertEqual(obj.created_at, datetime(2023, 10, 12, 12, 0, 0))
         self.assertEqual(obj.updated_at, datetime(2023, 10, 12, 12, 30, 0))
@@ -182,7 +182,7 @@ class TestBaseModel(unittest.TestCase):
             'updated_at': '2023-10-12T12:30:00',
             'name': 'John'
         }
-        obj = BaseModel(**data)
+        obj = Review(**data)
         self.assertEqual(obj.id, 'some_id_value')
         self.assertEqual(obj.created_at, datetime(2023, 10, 12, 12, 0, 0))
         self.assertEqual(obj.updated_at, datetime(2023, 10, 12, 12, 30, 0))
@@ -194,7 +194,7 @@ class TestBaseModel(unittest.TestCase):
         Test when kwargs is empty
         """
         data = {}
-        obj = BaseModel(**data)
+        obj = Review(**data)
         self.assertEqual(len(obj.__dict__), 3)
 
     def test_kwargs_None(self):
@@ -202,7 +202,7 @@ class TestBaseModel(unittest.TestCase):
         Test when kwargs is None
         """
         data = None
-        obj = BaseModel(data)
+        obj = Review(data)
         self.assertEqual(len(obj.__dict__), 3)
 
     def test_kwargs_Not_dict(self):
@@ -210,5 +210,5 @@ class TestBaseModel(unittest.TestCase):
         Test when kwargs is not a dictioanry
         """
         data = [1, 4, 8]
-        obj = BaseModel(data)
+        obj = Review(data)
         self.assertEqual(len(obj.__dict__), 3)
