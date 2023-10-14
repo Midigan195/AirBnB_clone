@@ -11,6 +11,7 @@ from models.amenity import Amenity
 from models.review import Review
 from models.city import City
 
+
 class TestFileStorage(unittest.TestCase):
     """
     Creates a test suite for Filestorage
@@ -23,7 +24,6 @@ class TestFileStorage(unittest.TestCase):
         if os.path.exists(file_path):
             os.remove(file_path)
         self.storage = FileStorage()
-
 
     def tearDown(self):
         """

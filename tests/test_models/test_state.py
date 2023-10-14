@@ -150,17 +150,16 @@ class TestState(unittest.TestCase):
         state = State()
         state.name = "Jeffry"
         state.surname = "Bezos"
-        self.assertIn("name" ,state.to_dict())
-        self.assertIn("surname" ,state.to_dict())
+        self.assertIn("name", state.to_dict())
+        self.assertIn("surname", state.to_dict())
         self.assertEqual("Jeffry", state.to_dict()["name"])
         self.assertEqual("Bezos", state.to_dict()["surname"])
-
 
     def test_kwargs_normal(self):
         """
         Test when kwargs is a normal dictionary
         """
-        data =  {
+        data = {
             '__class__': 'State',
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
@@ -176,7 +175,7 @@ class TestState(unittest.TestCase):
         """
         Test when kwargs has extra attributes
         """
-        data =  {
+        data = {
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
             'updated_at': '2023-10-12T12:30:00',

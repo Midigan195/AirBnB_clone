@@ -150,17 +150,16 @@ class TestUser(unittest.TestCase):
         user = User()
         user.name = "Jeffry"
         user.surname = "Bezos"
-        self.assertIn("name" ,user.to_dict())
-        self.assertIn("surname" ,user.to_dict())
+        self.assertIn("name", user.to_dict())
+        self.assertIn("surname", user.to_dict())
         self.assertEqual("Jeffry", user.to_dict()["name"])
         self.assertEqual("Bezos", user.to_dict()["surname"])
-
 
     def test_kwargs_normal(self):
         """
         Test when kwargs is a normal dictionary
         """
-        data =  {
+        data = {
             '__class__': 'User',
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
@@ -176,7 +175,7 @@ class TestUser(unittest.TestCase):
         """
         Test when kwargs has extra attributes
         """
-        data =  {
+        data = {
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
             'updated_at': '2023-10-12T12:30:00',

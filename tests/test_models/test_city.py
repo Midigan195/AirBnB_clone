@@ -150,17 +150,16 @@ class TestCity(unittest.TestCase):
         city = City()
         city.name = "Jeffry"
         city.surname = "Bezos"
-        self.assertIn("name" ,city.to_dict())
-        self.assertIn("surname" ,city.to_dict())
+        self.assertIn("name", city.to_dict())
+        self.assertIn("surname", city.to_dict())
         self.assertEqual("Jeffry", city.to_dict()["name"])
         self.assertEqual("Bezos", city.to_dict()["surname"])
-
 
     def test_kwargs_normal(self):
         """
         Test when kwargs is a normal dictionary
         """
-        data =  {
+        data = {
             '__class__': 'City',
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
@@ -176,7 +175,7 @@ class TestCity(unittest.TestCase):
         """
         Test when kwargs has extra attributes
         """
-        data =  {
+        data = {
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
             'updated_at': '2023-10-12T12:30:00',

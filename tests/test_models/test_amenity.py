@@ -150,17 +150,16 @@ class TestAmenity(unittest.TestCase):
         amenity = Amenity()
         amenity.name = "Jeffry"
         amenity.surname = "Bezos"
-        self.assertIn("name" ,amenity.to_dict())
-        self.assertIn("surname" ,amenity.to_dict())
+        self.assertIn("name", amenity.to_dict())
+        self.assertIn("surname", amenity.to_dict())
         self.assertEqual("Jeffry", amenity.to_dict()["name"])
         self.assertEqual("Bezos", amenity.to_dict()["surname"])
-
 
     def test_kwargs_normal(self):
         """
         Test when kwargs is a normal dictionary
         """
-        data =  {
+        data = {
             '__class__': 'Amenity',
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
@@ -176,7 +175,7 @@ class TestAmenity(unittest.TestCase):
         """
         Test when kwargs has extra attributes
         """
-        data =  {
+        data = {
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
             'updated_at': '2023-10-12T12:30:00',

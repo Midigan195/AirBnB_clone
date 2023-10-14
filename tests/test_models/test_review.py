@@ -150,17 +150,16 @@ class TestReview(unittest.TestCase):
         review = Review()
         review.name = "Jeffry"
         review.surname = "Bezos"
-        self.assertIn("name" ,review.to_dict())
-        self.assertIn("surname" ,review.to_dict())
+        self.assertIn("name", review.to_dict())
+        self.assertIn("surname", review.to_dict())
         self.assertEqual("Jeffry", review.to_dict()["name"])
         self.assertEqual("Bezos", review.to_dict()["surname"])
-
 
     def test_kwargs_normal(self):
         """
         Test when kwargs is a normal dictionary
         """
-        data =  {
+        data = {
             '__class__': 'Review',
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
@@ -176,7 +175,7 @@ class TestReview(unittest.TestCase):
         """
         Test when kwargs has extra attributes
         """
-        data =  {
+        data = {
             'id': 'some_id_value',
             'created_at': '2023-10-12T12:00:00',
             'updated_at': '2023-10-12T12:30:00',
