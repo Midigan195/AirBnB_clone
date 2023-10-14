@@ -2,9 +2,9 @@
 """
 This is the reviews class
 """
-import models
+import models.base_model
 
-class Review(models.BaseModel):
+class Review(models.base_model.BaseModel):
     """ THis class represents
 
     Attributes:
