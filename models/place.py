@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-    This is the Place class
-"""
+"""This is the Place class"""
 from models.base_model import BaseModel
 
 

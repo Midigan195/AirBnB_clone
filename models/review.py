@@ -1,10 +1,9 @@
 #!/usr/bin/python3
-"""
-    This is the reviews class
-"""
-import models
+"""This is the reviews class"""
+from models.base_model import BaseModel
 
-class Review(models.base_model.BaseModel):
+
+class Review(BaseModel):
     """THis class represents
 
     Attributes:

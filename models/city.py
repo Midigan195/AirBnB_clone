@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-    This defines a City class, inherites from basemodel
-"""
+"""This defines a City class, inherites from basemodel"""
 from models.base_model import BaseModel
 
 

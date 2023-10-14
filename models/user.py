@@ -1,12 +1,10 @@
 #!/usr/bin/python3
-"""
-This module defines a class that is a representation of a user
-"""
+"""This module defines a class that is a representation of a user"""
 from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """ This class represents a specific user.
+    """This class represents a specific user.
 
     Attributes:
         email (string): User email
