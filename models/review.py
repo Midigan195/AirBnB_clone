@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """
-This is the reviews class
+    This is the reviews class
 """
-import models.base_model
+import models
 
 class Review(models.base_model.BaseModel):
-    """ THis class represents
+    """THis class represents
 
     Attributes:
         place_id (str): this is the place.id

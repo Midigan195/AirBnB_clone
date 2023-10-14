@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """
-This is the Place class
+    This is the Place class
 """
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
-    """ Represents a place
+    """Represents a place
 
     Attributes:
         city_id (str): this is the city.id
