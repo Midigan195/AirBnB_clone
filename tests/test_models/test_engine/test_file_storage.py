@@ -34,6 +34,18 @@ class TestFileStorage(unittest.TestCase):
         if self.storage is not None:
             self.storage = None
 
+    def test_file_storage_attrs(self):
+        """
+        Test class attributes of filestorage
+        """
+        storage = FileStorage()
+        self.assertEqual(str, type(FileStorage._FileStorage__file_path))
+        self.assertEqual(dict, type(FileStorage._FileStorage__objects))
+        with self.assertRaises(AttributeError):
+            path = storage.__file_path
+        with self.assertRaises(AttributeError):
+            path = storage.__objects
+
     def test_file_storage_all(self):
         """
         Test file storage all with different classes
