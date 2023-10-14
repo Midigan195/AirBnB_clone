@@ -6,14 +6,13 @@ from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """
-    This class represents a specific user.
+    """ This class represents a specific user.
 
-    Args:
-        email(string) - User email
-        password(string) - Password of user
-        first_name(string) - First name of user
-        last_name(string) - Surname of user
+    Attributes:
+        email (string): User email
+        password (string): Password of user
+        first_name (string): First name of user
+        last_name (string): Surname of user
     """
     email = ""
     password = ""

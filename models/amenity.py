@@ -1,12 +1,14 @@
 #!/usr/bin/python3
-""" This is the amenity class """
+"""
+This is the amenity class
+"""
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
     """ Represents an Amenity
 
-        Attributes:
-            name (str): empty string
+    Attributes:
+        name (str): empty string
     """
     name = ""
