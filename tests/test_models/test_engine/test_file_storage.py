@@ -5,6 +5,8 @@ Defines unittest for the File storage module
 import unittest
 import os
 from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
+from models.user import User
 from models.place import Place
 from models.state import State
 from models.amenity import Amenity
@@ -38,12 +40,16 @@ class TestFileStorage(unittest.TestCase):
         """
         self.storage = FileStorage()
 
+        base_model = BaseModel()
+        user = User()
         place = Place()
         state = State()
         amenity = Amenity()
         review = Review()
         city = City()
 
+        self.storage.new(base_model)
+        self.storage.new(user)
         self.storage.new(place)
         self.storage.new(state)
         self.storage.new(amenity)
@@ -51,6 +57,8 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(city)
 
         all_objects = self.storage.all()
+        self.assertIn("User.{}".format(user.id), all_objects)
+        self.assertIn("BaseModel.{}".format(base_model.id), all_objects)
         self.assertIn("Place.{}".format(place.id), all_objects)
         self.assertIn("State.{}".format(state.id), all_objects)
         self.assertIn("Amenity.{}".format(amenity.id), all_objects)
@@ -63,12 +71,16 @@ class TestFileStorage(unittest.TestCase):
         """
         self.storage = FileStorage()
 
+        base_model = BaseModel()
+        user = User()
         place = Place()
         state = State()
         amenity = Amenity()
         review = Review()
         city = City()
 
+        self.storage.new(base_model)
+        self.storage.new(user)
         self.storage.new(place)
         self.storage.new(state)
         self.storage.new(amenity)

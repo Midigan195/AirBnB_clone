@@ -211,3 +211,16 @@ class TestUser(unittest.TestCase):
         data = [1, 4, 8]
         obj = User(data)
         self.assertEqual(len(obj.__dict__), 3)
+
+    def test_class_attrs(self):
+        """
+        Test that class attributes are set
+        """
+        email = User.email
+        password = User.password
+        first_name = User.first_name
+        last_name = User.last_name
+        self.assertEqual("", email)
+        self.assertEqual("", password)
+        self.assertEqual("", last_name)
+        self.assertEqual("", first_name)

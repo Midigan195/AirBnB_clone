@@ -211,3 +211,14 @@ class TestReview(unittest.TestCase):
         data = [1, 4, 8]
         obj = Review(data)
         self.assertEqual(len(obj.__dict__), 3)
+
+    def test_class_attrs(self):
+        """
+        Test that class attributes are set
+        """
+        place_id = Review.place_id
+        user_id = Review.user_id
+        text = Review.text
+        self.assertEqual("", place_id)
+        self.assertEqual("", user_id)
+        self.assertEqual("", text)

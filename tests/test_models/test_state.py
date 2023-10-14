@@ -211,3 +211,10 @@ class TestState(unittest.TestCase):
         data = [1, 4, 8]
         obj = State(data)
         self.assertEqual(len(obj.__dict__), 3)
+
+    def test_class_attrs(self):
+        """
+        Test that class attributes are set
+        """
+        name = State.name
+        self.assertEqual("", name)

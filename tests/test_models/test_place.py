@@ -211,3 +211,31 @@ class TestPlace(unittest.TestCase):
         data = [1, 4, 8]
         obj = Place(data)
         self.assertEqual(len(obj.__dict__), 3)
+
+    def test_class_attrs(self):
+        """
+        Test that class attributes are set
+        """
+        city_id = Place.city_id
+        user_id = Place.user_id
+        name = Place.name
+        description = Place.description
+        number_rooms = Place.number_rooms
+        number_bathrooms = Place.number_bathrooms
+        max_guest = Place.max_guest
+        price_by_night = Place.price_by_night
+        latitude = Place.latitude
+        longitude = Place.longitude
+        amenity_ids = Place.amenity_ids
+
+        self.assertEqual("", city_id)
+        self.assertEqual("", user_id)
+        self.assertEqual("", name)
+        self.assertEqual("", description)
+        self.assertEqual(0, number_rooms)
+        self.assertEqual(0, number_bathrooms)
+        self.assertEqual(0, max_guest)
+        self.assertEqual(0, price_by_night)
+        self.assertEqual(0.0, latitude)
+        self.assertEqual(0.0, longitude)
+        self.assertEqual([], amenity_ids)
