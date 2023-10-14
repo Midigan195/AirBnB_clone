@@ -13,6 +13,7 @@ class Review(BaseModel):
         user_id (str): this is the User.id
         text (str): this is the text string
     """
+
     place_id = ""
     user_id = ""
     text = ""

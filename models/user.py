@@ -14,6 +14,7 @@ class User(BaseModel):
         first_name (string): First name of user
         last_name (string): Surname of user
     """
+
     email = ""
     password = ""
     first_name = ""
