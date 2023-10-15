@@ -38,13 +38,16 @@ class TestFileStorage(unittest.TestCase):
         """
         Test class attributes of filestorage
         """
-        storage = FileStorage()
         self.assertEqual(str, type(FileStorage._FileStorage__file_path))
         self.assertEqual(dict, type(FileStorage._FileStorage__objects))
         with self.assertRaises(AttributeError):
-            path = storage.__file_path
+            path = FileStorage.__file_path
         with self.assertRaises(AttributeError):
-            path = storage.__objects
+            path = FileStorage.__objects
+        with self.assertRaises(AttributeError):
+            path = self.storage.__file_path
+        with self.assertRaises(AttributeError):
+            path = self.storage.__objects
 
     def test_file_storage_all(self):
         """
@@ -187,3 +190,29 @@ class TestFileStorage(unittest.TestCase):
         prev = self.storage.all()
         self.storage.reload()
         self.assertEqual(self.storage.all(), prev)
+
+    def test_file_storage_methods_with_args(self):
+        """
+        Test that a new instance is created
+        """
+        with self.assertRaises(TypeError):
+            self.storage.all(20)
+        with self.assertRaises(TypeError):
+            self.storage.save(20)
+        with self.assertRaises(TypeError):
+            self.storage.reload(20)
+        with self.assertRaises(AttributeError):
+            self.storage.new(20)
+
+    def test_file_storage_methods_none(self):
+        """
+        Test that invalid object returs type error
+        """
+        with self.assertRaises(AttributeError):
+            self.storage.new(None)
+        with self.assertRaises(TypeError):
+            self.storage.all(None)
+        with self.assertRaises(TypeError):
+            self.storage.save(None)
+        with self.assertRaises(TypeError):
+            self.storage.reload(None)
