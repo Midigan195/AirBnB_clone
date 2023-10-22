@@ -1,0 +1,10 @@
+header {
+	background-repeat: no-repeat;
+	background-color: white;
+	border-bottom: 1px solid #CCCCCC;
+	background-color: #FF0000;
+	height: 70px;
+	width: 100%;
+	background-image: url('images/icon.png');
+	background-position: 20px center;
+}
